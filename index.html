@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Chronos - A stunning glassmorphic visual real-time age calculator, life statistics, planetary age, and milestone tracker.">
+  <title>Chronos • Visual Real-Time Age Calculator</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="aurora">
+  <!-- Dynamic Ambient Animated Background Elements -->
+  <div class="ambient-background">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="glow-orb orb-4"></div>
+    <div class="noise-overlay"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+
+  <!-- Main Container -->
+  <div class="app-container">
+    <!-- Top Navigation / Header -->
+    <header class="glass-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Chronos<span class="gradient-text">.ai</span></h1>
+          <p class="tagline">Temporal Metric & Real-Time Life Explorer</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Theme Selector -->
+        <div class="theme-switcher">
+          <button class="theme-btn active" data-theme-name="aurora" title="Aurora Borealis" id="theme-aurora">
+            <span class="theme-dot aurora-dot"></span>
+          </button>
+          <button class="theme-btn" data-theme-name="cyber" title="Cyber Violet" id="theme-cyber">
+            <span class="theme-dot cyber-dot"></span>
+          </button>
+          <button class="theme-btn" data-theme-name="sunset" title="Solar Flare" id="theme-sunset">
+            <span class="theme-dot sunset-dot"></span>
+          </button>
+          <button class="theme-btn" data-theme-name="emerald" title="Neo Emerald" id="theme-emerald">
+            <span class="theme-dot emerald-dot"></span>
+          </button>
+        </div>
+
+        <button class="glass-btn icon-only" id="celebrate-btn" title="Celebrate Lifetime 🎉">
+          <span>🎉</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-grid">
+      <!-- Input Section (Glass Card) -->
+      <section class="glass-card input-hero-card" id="input-card">
+        <div class="card-glow"></div>
+        <div class="card-header">
+          <div class="badge">Birth Coordinates</div>
+          <h2>When did your journey begin?</h2>
+          <p>Choose your birth date and exact time to activate continuous live temporal tracking.</p>
+        </div>
+
+        <form id="age-form" class="age-inputs-form" onsubmit="event.preventDefault();">
+          <div class="input-grid">
+            <div class="input-group">
+              <label for="birth-date">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Date of Birth
+              </label>
+              <div class="input-wrapper">
+                <input type="date" id="birth-date" required>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label for="birth-time">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 15 15"></polyline>
+                </svg>
+                Exact Time <span class="optional">(Optional)</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="time" id="birth-time" step="1" value="00:00:00">
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="quick-presets">
+            <span class="preset-label">Quick Examples:</span>
+            <button type="button" class="preset-chip" data-age-preset="2000-01-01">Y2K (Jan 1, 2000)</button>
+            <button type="button" class="preset-chip" data-age-preset="1995-08-24">Gen-Z (1995)</button>
+            <button type="button" class="preset-chip" data-age-preset="1989-12-13">Millennial (1989)</button>
+            <button type="button" class="preset-chip" data-age-preset="today-relative">Today's Milestone</button>
+          </div>
+
+          <div class="status-indicator live">
+            <span class="pulsing-radar"></span>
+            <span id="live-status-text">Real-time chronometer streaming live</span>
+          </div>
+        </form>
+      </section>
+
+      <!-- Primary Age Dashboard (Hero Live Display) -->
+      <section class="glass-card hero-dashboard" id="hero-dashboard">
+        <div class="card-glow highlight-glow"></div>
+        <div class="dashboard-header">
+          <div class="live-pill">
+            <span class="pulse-dot"></span>
+            LIVE TICKER
+          </div>
+          <div class="generation-tag" id="generation-badge">Discovering Era...</div>
+        </div>
+
+        <!-- Big Display Counter -->
+        <div class="main-chronometer">
+          <div class="chrono-unit-box">
+            <span class="chrono-value" id="val-years">00</span>
+            <span class="chrono-label">YEARS</span>
+          </div>
+          <span class="chrono-separator">:</span>
+          <div class="chrono-unit-box">
+            <span class="chrono-value" id="val-months">00</span>
+            <span class="chrono-label">MONTHS</span>
+          </div>
+          <span class="chrono-separator">:</span>
+          <div class="chrono-unit-box">
+            <span class="chrono-value" id="val-days">00</span>
+            <span class="chrono-label">DAYS</span>
+          </div>
+        </div>
+
+        <!-- Sub-units (Hours, Mins, Secs, Milliseconds in real-time) -->
+        <div class="sub-chronometer">
+          <div class="sub-unit">
+            <span class="sub-val" id="val-hours">00</span>
+            <span class="sub-label">Hours</span>
+          </div>
+          <div class="sub-unit">
+            <span class="sub-val" id="val-minutes">00</span>
+            <span class="sub-label">Minutes</span>
+          </div>
+          <div class="sub-unit">
+            <span class="sub-val accent-val" id="val-seconds">00</span>
+            <span class="sub-label">Seconds</span>
+          </div>
+          <div class="sub-unit milli-unit">
+            <span class="sub-val mono-val" id="val-millis">000</span>
+            <span class="sub-label">Millis</span>
+          </div>
+        </div>
+
+        <!-- Next Birthday Countdown Card Strip -->
+        <div class="next-bday-strip">
+          <div class="bday-info">
+            <div class="bday-icon">🎂</div>
+            <div>
+              <div class="bday-title">Next Birthday In:</div>
+              <div class="bday-date-str" id="next-bday-date">Calculating...</div>
+            </div>
+          </div>
+
+          <div class="bday-countdown-badges">
+            <div class="badge-item"><span id="bday-days">0</span>d</div>
+            <div class="badge-item"><span id="bday-hours">0</span>h</div>
+            <div class="badge-item"><span id="bday-mins">0</span>m</div>
+            <div class="badge-item"><span id="bday-secs">0</span>s</div>
+          </div>
+        </div>
+
+        <!-- Progress to Next Birthday -->
+        <div class="bday-progress-container">
+          <div class="progress-labels">
+            <span>Current Year Progress</span>
+            <span id="bday-progress-pct">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="bday-progress-bar" style="width: 0%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Total Cumulative Life Statistics -->
+      <section class="glass-card full-width-card" id="life-stats-section">
+        <div class="section-title-wrap">
+          <div class="icon-tag">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+          </div>
+          <h3>Total Life Accumulation Metrics</h3>
+          <span class="section-sub">Everything you've accomplished and experienced so far</span>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon">📅</div>
+            <div class="metric-data">
+              <span class="metric-number" id="total-days">0</span>
+              <span class="metric-name">Total Days on Earth</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">⏰</div>
+            <div class="metric-data">
+              <span class="metric-number" id="total-hours">0</span>
+              <span class="metric-name">Total Hours Lived</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-data">
+              <span class="metric-number" id="total-minutes">0</span>
+              <span class="metric-name">Total Minutes Elapsed</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">💓</div>
+            <div class="metric-data">
+              <span class="metric-number" id="total-heartbeats">0</span>
+              <span class="metric-name">Approx. Heartbeats (~80 bpm)</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">🫁</div>
+            <div class="metric-data">
+              <span class="metric-number" id="total-breaths">0</span>
+              <span class="metric-name">Total Breaths Taken (~16/min)</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">🌙</div>
+            <div class="metric-data">
+              <span class="metric-number" id="total-sleep">0</span>
+              <span class="metric-name">Time Spent Dreaming (~33%)</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">☀️</div>
+            <div class="metric-data">
+              <span class="metric-number" id="solar-distance">0</span>
+              <span class="metric-name">Km Traveled with Sun (~940M/yr)</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon">🥗</div>
+            <div class="metric-data">
+              <span class="metric-number" id="total-meals">0</span>
+              <span class="metric-name">Estimated Meals Enjoyed</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Astrological & Celestial Identity -->
+      <section class="glass-card astrological-card">
+        <div class="section-title-wrap">
+          <div class="icon-tag">✨</div>
+          <h3>Cosmic & Astrological Identity</h3>
+        </div>
+
+        <div class="astro-grid">
+          <div class="astro-item glass-inset">
+            <div class="astro-symbol" id="zodiac-symbol">♈</div>
+            <div class="astro-details">
+              <span class="astro-tag">Western Zodiac</span>
+              <h4 id="zodiac-name">Aries</h4>
+              <p class="astro-meta" id="zodiac-dates">Mar 21 - Apr 19</p>
+              <div class="astro-trait" id="zodiac-trait">Element: Fire • Modality: Cardinal</div>
+            </div>
+          </div>
+
+          <div class="astro-item glass-inset">
+            <div class="astro-symbol" id="chinese-symbol">🐉</div>
+            <div class="astro-details">
+              <span class="astro-tag">Chinese Zodiac</span>
+              <h4 id="chinese-name">Dragon</h4>
+              <p class="astro-meta" id="chinese-element">Wood / Yang</p>
+              <div class="astro-trait" id="chinese-trait">Charismatic, energetic, visionary</div>
+            </div>
+          </div>
+
+          <div class="astro-item glass-inset">
+            <div class="astro-symbol" id="day-born-symbol">🌟</div>
+            <div class="astro-details">
+              <span class="astro-tag">Birth Day of the Week</span>
+              <h4 id="birth-weekday">Sunday's Child</h4>
+              <p class="astro-meta" id="birth-weekday-meta">Day of the Sun</p>
+              <div class="astro-trait" id="birth-weekday-quote">"Full of grace and spirit"</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Planetary Ages (Explore Solar System) -->
+      <section class="glass-card planets-card">
+        <div class="section-title-wrap">
+          <div class="icon-tag">🪐</div>
+          <h3>Age Across the Solar System</h3>
+          <span class="section-sub">One year is one full revolution around the Sun</span>
+        </div>
+
+        <div class="planets-grid">
+          <!-- Mercury -->
+          <div class="planet-badge" style="--planet-color: #ff9d5c;">
+            <div class="planet-sphere mercury"></div>
+            <div class="planet-name">Mercury</div>
+            <div class="planet-orbit">Orbit: 88 Earth Days</div>
+            <div class="planet-age" id="planet-mercury">0.0 yrs</div>
+          </div>
+
+          <!-- Venus -->
+          <div class="planet-badge" style="--planet-color: #e5c158;">
+            <div class="planet-sphere venus"></div>
+            <div class="planet-name">Venus</div>
+            <div class="planet-orbit">Orbit: 224.7 Earth Days</div>
+            <div class="planet-age" id="planet-venus">0.0 yrs</div>
+          </div>
+
+          <!-- Mars -->
+          <div class="planet-badge" style="--planet-color: #ff5757;">
+            <div class="planet-sphere mars"></div>
+            <div class="planet-name">Mars</div>
+            <div class="planet-orbit">Orbit: 687 Earth Days</div>
+            <div class="planet-age" id="planet-mars">0.0 yrs</div>
+          </div>
+
+          <!-- Jupiter -->
+          <div class="planet-badge" style="--planet-color: #e09f67;">
+            <div class="planet-sphere jupiter"></div>
+            <div class="planet-name">Jupiter</div>
+            <div class="planet-orbit">Orbit: 11.86 Earth Yrs</div>
+            <div class="planet-age" id="planet-jupiter">0.0 yrs</div>
+          </div>
+
+          <!-- Saturn -->
+          <div class="planet-badge" style="--planet-color: #f7d27e;">
+            <div class="planet-sphere saturn"></div>
+            <div class="planet-name">Saturn</div>
+            <div class="planet-orbit">Orbit: 29.46 Earth Yrs</div>
+            <div class="planet-age" id="planet-saturn">0.0 yrs</div>
+          </div>
+
+          <!-- Neptune -->
+          <div class="planet-badge" style="--planet-color: #4b89dc;">
+            <div class="planet-sphere neptune"></div>
+            <div class="planet-name">Neptune</div>
+            <div class="planet-orbit">Orbit: 164.8 Earth Yrs</div>
+            <div class="planet-age" id="planet-neptune">0.0 yrs</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Life Milestones & Upcoming Epochs -->
+      <section class="glass-card milestones-card">
+        <div class="section-title-wrap">
+          <div class="icon-tag">🏆</div>
+          <h3>Life Milestone Epochs</h3>
+          <span class="section-sub">Milestones passed and what to look forward to</span>
+        </div>
+
+        <div class="milestones-timeline" id="milestones-container">
+          <!-- Populated by script.js -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+      <div class="footer-content">
+        <p>Crafted with precision & modern Glassmorphism • Time waits for no one — make every moment count.</p>
+        <div class="footer-links">
+          <button class="footer-action" id="copy-summary-btn">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy Age Summary
+          </button>
+          <span class="toast" id="toast-msg">Copied to clipboard! ✨</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+
+</html>
