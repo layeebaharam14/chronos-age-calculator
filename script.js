@@ -104,6 +104,18 @@
   const dashboardReenterBtn = document.getElementById('dashboard-reenter-btn');
   const headerReenterBtn = document.getElementById('header-reenter-btn');
 
+  // Birthday Special Blessing Popup Card Elements
+  const birthdayModalBackdrop = document.getElementById('birthday-modal-backdrop');
+  const birthdayModalCard = document.getElementById('birthday-modal-card');
+  const birthdayModalClose = document.getElementById('birthday-modal-close');
+  const popupBdayTag = document.getElementById('popup-bday-tag');
+  const popupBdayTitle = document.getElementById('popup-bday-title');
+  const popupBdaySubtitle = document.getElementById('popup-bday-subtitle');
+  const popupBdayMainMsg = document.getElementById('popup-bday-main-msg');
+  const popupCelebrateBtn = document.getElementById('popup-celebrate-btn');
+  const popupDismissBtn = document.getElementById('popup-dismiss-btn');
+  const bannerOpenBlessingBtn = document.getElementById('banner-open-blessing-btn');
+
   // Animation Frame Handle
   let animationFrameId = null;
 
@@ -267,7 +279,7 @@
 
     if (diffMillis < 0) {
       // Future date chosen
-      liveStatusText.textContent = 'Selected date is in the future!';
+      if (liveStatusText) liveStatusText.textContent = 'Selected date is in the future!';
       valYears.textContent = '00';
       valMonths.textContent = '00';
       valDays.textContent = '00';
@@ -285,7 +297,7 @@
       animationFrameId = requestAnimationFrame(updateChronometer);
       return;
     } else {
-      liveStatusText.textContent = 'Real-time chronometer streaming live';
+      if (liveStatusText) liveStatusText.textContent = 'Real-time chronometer streaming live';
     }
 
     // Exact Calendar Difference (Years, Months, Days)
@@ -494,6 +506,18 @@
       bannerTitle.textContent = `Happy ${getOrdinal(ageNow)} Birthday! 🥂✨`;
       bannerDesc.textContent = `May your new solar orbit around the Sun overflow with radiant happiness, robust health, love, and extraordinary breakthroughs. Today is 100% YOUR special day — celebrate in style!`;
 
+      if (bannerOpenBlessingBtn) {
+        bannerOpenBlessingBtn.classList.remove('hidden');
+      }
+
+      // Auto pop up the birthday prayer modal ONCE when arriving on dashboard
+      if (!window.__birthdayModalShown) {
+        window.__birthdayModalShown = true;
+        setTimeout(() => {
+          openBirthdayPrayerModal(completedYears);
+        }, 400);
+      }
+
       // Auto fire celebratory confetti once
       if (!window.__birthdayConfettiFired) {
         window.__birthdayConfettiFired = true;
@@ -501,6 +525,11 @@
       }
     } else if (isBirthdayWeek) {
       // 🎈 Level 2: BIRTHDAY WEEK
+      if (bannerOpenBlessingBtn) {
+        bannerOpenBlessingBtn.classList.add('hidden');
+      }
+      closeBirthdayPrayerModal();
+
       exclusiveBdayBanner.classList.add('theme-week');
       bannerIcon.textContent = '🎈';
       bannerBadge.textContent = `✨ IT'S YOUR BIRTHDAY WEEK!`;
@@ -508,6 +537,11 @@
       bannerDesc.textContent = `The countdown is on and your celebration epoch has officially begun! One day is never enough to celebrate your remarkable life — cherish every single moment of your birthday week!`;
     } else if (isBirthdayMonth) {
       // 🗓️ Level 3: BIRTHDAY MONTH
+      if (bannerOpenBlessingBtn) {
+        bannerOpenBlessingBtn.classList.add('hidden');
+      }
+      closeBirthdayPrayerModal();
+
       exclusiveBdayBanner.classList.add('theme-month');
       bannerIcon.textContent = '🗓️';
       bannerBadge.textContent = `🎁 IT'S YOUR BIRTHDAY MONTH!`;
@@ -515,6 +549,10 @@
       bannerDesc.textContent = `This entire month belongs to your story, growth, and cosmic milestones. Make every day of this month count, treat yourself, and enjoy the positive vibes!`;
     } else {
       // 🚫 Level 4: OUTSIDE BIRTHDAY MONTH/WEEK -> EXCLUSIVELY HIDDEN
+      if (bannerOpenBlessingBtn) {
+        bannerOpenBlessingBtn.classList.add('hidden');
+      }
+      closeBirthdayPrayerModal();
       exclusiveBdayBanner.classList.add('hidden');
     }
   }
@@ -717,12 +755,43 @@
     });
   }
 
+  // --- Birthday Special Blessing Popup Card Handlers ---
+  function openBirthdayPrayerModal(completedYears) {
+    if (!birthdayModalBackdrop) return;
+    const ageNow = completedYears;
+    const nextAge = completedYears + 1;
+
+    if (popupBdayTag) {
+      popupBdayTag.textContent = `🎉 OFFICIAL ${getOrdinal(ageNow).toUpperCase()} BIRTHDAY BLESSING`;
+    }
+    if (popupBdayTitle) {
+      popupBdayTitle.textContent = `Happy ${getOrdinal(ageNow)} Birthday! 🥂✨`;
+    }
+    if (popupBdaySubtitle) {
+      popupBdaySubtitle.textContent = `Honoring the completion of ${ageNow} beautiful solar orbits & stepping into year ${nextAge}`;
+    }
+    if (popupBdayMainMsg) {
+      popupBdayMainMsg.innerHTML = `Today is exclusively <strong>your day</strong>! A moment to pause, reflect, and celebrate the miracle of your life, the obstacles you’ve overcome, and the radiant light you bring to everyone around you. As you begin your <strong>${getOrdinal(nextAge)} year on Earth</strong>, may your heart be anchored in deep gratitude, your soul uplifted by love, and your spirit empowered to conquer every mountain you aspire to climb.`;
+    }
+
+    birthdayModalBackdrop.classList.remove('hidden');
+    triggerCelebration();
+  }
+
+  function closeBirthdayPrayerModal() {
+    if (birthdayModalBackdrop) {
+      birthdayModalBackdrop.classList.add('hidden');
+    }
+  }
+
   // --- Multi-View Workflow Transitions (Landing -> 2s Loader -> Dashboard) ---
   function showLandingView() {
     if (animationFrameId) {
       cancelAnimationFrame(animationFrameId);
       animationFrameId = null;
     }
+    closeBirthdayPrayerModal();
+    window.__birthdayModalShown = false;
     if (dashboardView) dashboardView.classList.add('hidden');
     if (loadingView) loadingView.classList.add('hidden');
     if (headerReenterBtn) headerReenterBtn.classList.add('hidden');
@@ -912,6 +981,37 @@
       card21stBirthday.style.cursor = 'pointer';
       card21stBirthday.setAttribute('title', 'Click to celebrate 21st Milestone! 🥂');
       card21stBirthday.addEventListener('click', triggerCelebration);
+    }
+
+    // Birthday Special Blessing Modal Event Listeners
+    if (birthdayModalClose) {
+      birthdayModalClose.addEventListener('click', closeBirthdayPrayerModal);
+    }
+    if (popupDismissBtn) {
+      popupDismissBtn.addEventListener('click', closeBirthdayPrayerModal);
+    }
+    if (birthdayModalBackdrop) {
+      birthdayModalBackdrop.addEventListener('click', (e) => {
+        if (e.target === birthdayModalBackdrop) {
+          closeBirthdayPrayerModal();
+        }
+      });
+    }
+    if (popupCelebrateBtn) {
+      popupCelebrateBtn.addEventListener('click', () => {
+        triggerCelebration();
+        setTimeout(triggerCelebration, 250);
+        setTimeout(triggerCelebration, 550);
+      });
+    }
+    if (bannerOpenBlessingBtn) {
+      bannerOpenBlessingBtn.addEventListener('click', () => {
+        const dateVal = birthDateInput ? birthDateInput.value : '';
+        if (!dateVal) return;
+        const [yearStr] = dateVal.split('-');
+        const y = new Date().getFullYear() - parseInt(yearStr, 10);
+        openBirthdayPrayerModal(y);
+      });
     }
 
     initThemeSwitcher();

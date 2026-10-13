@@ -2242,4 +2242,365 @@ body {
   .exclusive-banner-btn {
     align-self: flex-start;
   }
+  .bday-popup-footer {
+    flex-direction: column;
+    width: 100%;
+  }
+  .bday-popup-action-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- 14. EXCLUSIVE BANNER ACTIONS & SECONDARY BUTTON ---------- */
+.exclusive-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.exclusive-banner-btn.secondary-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: none;
+}
+
+.exclusive-banner-btn.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #f59e0b;
+  color: #fef08a;
+}
+
+/* ---------- 15. BIRTHDAY SPECIAL BLESSING POPUP MODAL ---------- */
+.birthday-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10, 15, 29, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn 0.35s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.birthday-modal-card {
+  position: relative;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: var(--radius-xl);
+  padding: 38px 32px 32px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--glass-border);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  animation: modalPopIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.birthday-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  z-index: 2;
+}
+
+.birthday-modal-close:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: rotate(90deg) scale(1.1);
+}
+
+.bday-popup-halo {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 220px;
+  background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.25) 0%, rgba(245, 158, 11, 0.15) 45%, transparent 70%);
+  pointer-events: none;
+  filter: blur(25px);
+  border-radius: 50%;
+}
+
+.bday-popup-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.bday-popup-cake-badge {
+  font-size: 3rem;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(245, 158, 11, 0.1));
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
+  animation: pulseIcon 2s ease-in-out infinite alternate;
+}
+
+.bday-popup-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.bday-popup-title {
+  font-family: var(--font-display);
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.bday-popup-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-width: 440px;
+}
+
+.bday-heartfelt-msg {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  text-align: center;
+  font-style: italic;
+}
+
+.bday-prayers-box {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.07) 0%, rgba(245, 158, 11, 0.03) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.28);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prayers-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #f59e0b;
+}
+
+.prayers-header h4 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.prayers-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prayers-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.prayers-list li strong {
+  color: var(--text-primary);
+}
+
+.prayer-bullet {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.bday-popup-footer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 6px;
+}
+
+.bday-popup-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+}
+
+.bday-popup-action-btn.confetti-action {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+}
+
+.bday-popup-action-btn.confetti-action:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: #f59e0b;
+  color: #f59e0b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25);
+}
+
+.bday-popup-action-btn.dismiss-action {
+  background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+}
+
+.bday-popup-action-btn.dismiss-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5);
+}
+
+/* Light Theme Overrides for Birthday Modal */
+body[data-theme="pearl"] .birthday-modal-backdrop,
+body[data-theme="blush"] .birthday-modal-backdrop,
+body[data-theme="sage"] .birthday-modal-backdrop,
+body[data-theme="sand"] .birthday-modal-backdrop {
+  background: rgba(15, 23, 42, 0.45);
+}
+
+body[data-theme="pearl"] .birthday-modal-card,
+body[data-theme="blush"] .birthday-modal-card,
+body[data-theme="sage"] .birthday-modal-card,
+body[data-theme="sand"] .birthday-modal-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 25px 70px rgba(100, 116, 139, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.95);
+}
+
+body[data-theme="pearl"] .birthday-modal-close,
+body[data-theme="blush"] .birthday-modal-close,
+body[data-theme="sage"] .birthday-modal-close,
+body[data-theme="sand"] .birthday-modal-close {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #0f172a;
+}
+
+body[data-theme="pearl"] .bday-popup-title,
+body[data-theme="blush"] .bday-popup-title,
+body[data-theme="sage"] .bday-popup-title,
+body[data-theme="sand"] .bday-popup-title {
+  background: linear-gradient(135deg, #b45309 0%, #ea580c 50%, #e11d48 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body[data-theme="pearl"] .bday-heartfelt-msg,
+body[data-theme="blush"] .bday-heartfelt-msg,
+body[data-theme="sage"] .bday-heartfelt-msg,
+body[data-theme="sand"] .bday-heartfelt-msg {
+  background: rgba(245, 158, 11, 0.05);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #1e293b;
+}
+
+body[data-theme="pearl"] .bday-prayers-box,
+body[data-theme="blush"] .bday-prayers-box,
+body[data-theme="sage"] .bday-prayers-box,
+body[data-theme="sand"] .bday-prayers-box {
+  background: rgba(255, 251, 235, 0.88);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+body[data-theme="pearl"] .prayers-list li strong,
+body[data-theme="blush"] .prayers-list li strong,
+body[data-theme="sage"] .prayers-list li strong,
+body[data-theme="sand"] .prayers-list li strong {
+  color: #0f172a;
+}
+
+body[data-theme="pearl"] .bday-popup-action-btn.confetti-action,
+body[data-theme="blush"] .bday-popup-action-btn.confetti-action,
+body[data-theme="sage"] .bday-popup-action-btn.confetti-action,
+body[data-theme="sand"] .bday-popup-action-btn.confetti-action {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+}
+
+body[data-theme="pearl"] .bday-popup-action-btn.confetti-action:hover,
+body[data-theme="blush"] .bday-popup-action-btn.confetti-action:hover,
+body[data-theme="sage"] .bday-popup-action-btn.confetti-action:hover,
+body[data-theme="sand"] .bday-popup-action-btn.confetti-action:hover {
+  background: #ffffff;
+  border-color: #d97706;
+  color: #d97706;
+}
+
+body[data-theme="pearl"] .exclusive-banner-btn.secondary-btn,
+body[data-theme="blush"] .exclusive-banner-btn.secondary-btn,
+body[data-theme="sage"] .exclusive-banner-btn.secondary-btn,
+body[data-theme="sand"] .exclusive-banner-btn.secondary-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #b45309;
 }

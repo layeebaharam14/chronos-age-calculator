@@ -220,9 +220,14 @@
             <h3 class="exclusive-banner-title" id="banner-title">Happy Birthday!</h3>
             <p class="exclusive-banner-desc" id="banner-desc">May your new solar orbit be filled with radiant joy, health, and limitless wonder!</p>
           </div>
-          <button type="button" class="exclusive-banner-btn" id="banner-celebrate-btn" title="Celebrate 🎉">
-            <span>🎉 Pop Confetti</span>
-          </button>
+          <div class="exclusive-banner-actions">
+            <button type="button" class="exclusive-banner-btn" id="banner-celebrate-btn" title="Celebrate 🎉">
+              <span>🎉 Pop Confetti</span>
+            </button>
+            <button type="button" class="exclusive-banner-btn secondary-btn hidden" id="banner-open-blessing-btn" title="Open Birthday Prayer & Blessing Card">
+              <span>💌 Birthday Blessing Card</span>
+            </button>
+          </div>
         </div>
 
         <!-- Big Display Counter -->
@@ -324,7 +329,7 @@
             <div class="progress-fill" id="bday-progress-bar" style="width: 0%"></div>
           </div>
         </div>
-      </section>
+      </div>
 
       <!-- Total Cumulative Life Statistics -->
       <section class="glass-card full-width-card" id="life-stats-section">
@@ -536,6 +541,62 @@
         </div>
       </div>
     </footer>
+  <!-- Birthday Special Blessing Popup Card (Exclusively shown on exact Birthday) -->
+  <div class="birthday-modal-backdrop hidden" id="birthday-modal-backdrop">
+    <div class="birthday-modal-card glass-card" id="birthday-modal-card">
+      <button type="button" class="birthday-modal-close" id="birthday-modal-close" title="Close Birthday Greeting">✕</button>
+      
+      <div class="bday-popup-halo"></div>
+      
+      <div class="bday-popup-header">
+        <div class="bday-popup-cake-badge">🎂</div>
+        <span class="bday-popup-tag" id="popup-bday-tag">🎉 OFFICIAL BIRTHDAY BLESSING</span>
+        <h2 class="bday-popup-title" id="popup-bday-title">Happy Birthday! 🥂</h2>
+        <p class="bday-popup-subtitle" id="popup-bday-subtitle">Celebrating your radiant milestone orbit around the Sun</p>
+      </div>
+
+      <div class="bday-popup-body">
+        <div class="bday-heartfelt-msg">
+          <p id="popup-bday-main-msg">
+            Today marks a truly beautiful and sacred milestone: celebrating the wonder of your life, the journey you’ve traveled, and the radiant light you bring to the universe. As you step into this brand new chapter of your story, take a moment to honor how much you have grown, overcome, and achieved.
+          </p>
+        </div>
+
+        <div class="bday-prayers-box">
+          <div class="prayers-header">
+            <span class="prayers-icon">🕊️</span>
+            <h4>Heartfelt Prayers & Divine Blessings For You:</h4>
+          </div>
+          <ul class="prayers-list">
+            <li>
+              <span class="prayer-bullet">🌟</span>
+              <div><strong>Vibrant Health & Vitality:</strong> May you be blessed with enduring strength, radiant wellness in body and mind, and limitless stamina for all your dreams.</div>
+            </li>
+            <li>
+              <span class="prayer-bullet">🕊️</span>
+              <div><strong>Peace & Inner Serenity:</strong> May unshakeable peace guard your spirit, dissolving all worries and filling your days with calm confidence and gratitude.</div>
+            </li>
+            <li>
+              <span class="prayer-bullet">✨</span>
+              <div><strong>Wisdom, Purpose & Prosperity:</strong> May the paths ahead unfold with divine clarity, unlocking extraordinary opportunities, abundance, and fruitful endeavors.</div>
+            </li>
+            <li>
+              <span class="prayer-bullet">💖</span>
+              <div><strong>Love, Protection & Unbounded Joy:</strong> May you always walk enveloped in grace, surrounded by steadfast companions, sincere laughter, and deep unconditional love.</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bday-popup-footer">
+        <button type="button" class="bday-popup-action-btn confetti-action" id="popup-celebrate-btn">
+          <span>🎉 Pop Confetti Shower</span>
+        </button>
+        <button type="button" class="bday-popup-action-btn dismiss-action" id="popup-dismiss-btn">
+          <span>Receive Blessings & View Dashboard ✨</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- JavaScript -->
