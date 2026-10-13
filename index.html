@@ -120,10 +120,11 @@
           <!-- Quick Presets -->
           <div class="quick-presets">
             <span class="preset-label">Quick Examples:</span>
-            <button type="button" class="preset-chip" data-age-preset="2000-01-01">Y2K (Jan 1, 2000)</button>
+            <button type="button" class="preset-chip" data-age-preset="today-birthday">🎂 Today is My Birthday!</button>
+            <button type="button" class="preset-chip" data-age-preset="bday-week">🎈 Birthday Week</button>
+            <button type="button" class="preset-chip" data-age-preset="bday-month">🗓️ Birthday Month</button>
+            <button type="button" class="preset-chip" data-age-preset="2000-01-01">Y2K (2000)</button>
             <button type="button" class="preset-chip" data-age-preset="1995-08-24">Gen-Z (1995)</button>
-            <button type="button" class="preset-chip" data-age-preset="1989-12-13">Millennial (1989)</button>
-            <button type="button" class="preset-chip" data-age-preset="today-relative">Today's Milestone</button>
           </div>
 
           <div class="status-indicator live">
@@ -142,6 +143,20 @@
             LIVE TICKER
           </div>
           <div class="generation-tag" id="generation-badge">Discovering Era...</div>
+        </div>
+
+        <!-- Exclusive Birthday Celebration Banner (Only visible on Birthday, Birthday Week, or Birthday Month) -->
+        <div class="exclusive-bday-banner hidden" id="exclusive-bday-banner">
+          <div class="exclusive-banner-glow"></div>
+          <div class="exclusive-banner-icon" id="banner-icon">🎂</div>
+          <div class="exclusive-banner-body">
+            <div class="exclusive-banner-badge" id="banner-badge">🎉 Special Birthday Celebration</div>
+            <h3 class="exclusive-banner-title" id="banner-title">Happy Birthday!</h3>
+            <p class="exclusive-banner-desc" id="banner-desc">May your new solar orbit be filled with radiant joy, health, and limitless wonder!</p>
+          </div>
+          <button type="button" class="exclusive-banner-btn" id="banner-celebrate-btn" title="Celebrate 🎉">
+            <span>🎉 Pop Confetti</span>
+          </button>
         </div>
 
         <!-- Big Display Counter -->

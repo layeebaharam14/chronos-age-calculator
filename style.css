@@ -623,6 +623,142 @@ body {
   box-shadow: 0 4px 14px var(--accent-glow);
 }
 
+/* Exclusive Birthday Celebration Banner (Only visible on Birthday, Birthday Week, or Birthday Month) */
+.exclusive-bday-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.14) 0%, rgba(244, 63, 94, 0.14) 50%, rgba(192, 132, 252, 0.14) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2), inset 0 0 15px rgba(255, 215, 0, 0.1);
+  animation: bannerGlow 3s infinite ease-in-out alternate, slideDown 0.4s ease-out;
+  transition: all var(--transition-smooth);
+}
+
+.exclusive-bday-banner.hidden {
+  display: none !important;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bannerGlow {
+  0% {
+    border-color: rgba(255, 215, 0, 0.45);
+    box-shadow: 0 6px 24px rgba(255, 215, 0, 0.25);
+  }
+  50% {
+    border-color: rgba(244, 63, 94, 0.65);
+    box-shadow: 0 10px 35px rgba(244, 63, 94, 0.35);
+  }
+  100% {
+    border-color: rgba(0, 242, 254, 0.55);
+    box-shadow: 0 8px 30px rgba(0, 242, 254, 0.28);
+  }
+}
+
+/* Specific Variation: Birthday Week */
+.exclusive-bday-banner.theme-week {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.12) 0%, rgba(155, 81, 224, 0.14) 100%);
+  border-color: rgba(0, 242, 254, 0.45);
+  box-shadow: 0 8px 25px rgba(0, 242, 254, 0.22);
+}
+
+/* Specific Variation: Birthday Month */
+.exclusive-bday-banner.theme-month {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(6, 182, 212, 0.12) 100%);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+}
+
+.exclusive-banner-icon {
+  font-size: 2.3rem;
+  line-height: 1;
+  animation: floatBounce 2.5s infinite ease-in-out;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(8deg); }
+}
+
+.exclusive-banner-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.exclusive-banner-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffd700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.exclusive-bday-banner.theme-week .exclusive-banner-badge {
+  color: var(--accent-primary);
+}
+
+.exclusive-bday-banner.theme-month .exclusive-banner-badge {
+  color: #34d399;
+}
+
+.exclusive-banner-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.exclusive-banner-desc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.35;
+}
+
+.exclusive-banner-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(10px);
+}
+
+.exclusive-banner-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25);
+}
+
 /* Big Display Chronometer */
 .main-chronometer {
   display: flex;
@@ -1387,5 +1523,13 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+  }
+  .exclusive-bday-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .exclusive-banner-btn {
+    align-self: flex-start;
   }
 }

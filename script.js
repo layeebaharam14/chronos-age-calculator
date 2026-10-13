@@ -40,6 +40,14 @@
   const display21stDetail = document.getElementById('display-21st-detail');
   const card21stBirthday = document.getElementById('card-21st-birthday');
 
+  // Exclusive Birthday Celebration Banner Elements
+  const exclusiveBdayBanner = document.getElementById('exclusive-bday-banner');
+  const bannerIcon = document.getElementById('banner-icon');
+  const bannerBadge = document.getElementById('banner-badge');
+  const bannerTitle = document.getElementById('banner-title');
+  const bannerDesc = document.getElementById('banner-desc');
+  const bannerCelebrateBtn = document.getElementById('banner-celebrate-btn');
+
   // Cumulative Metrics
   const totalDays = document.getElementById('total-days');
   const totalHours = document.getElementById('total-hours');
@@ -260,6 +268,7 @@
       if (displayBdayInSub) displayBdayInSub.textContent = 'Awaiting valid date';
       if (display21stStatus) display21stStatus.textContent = '--';
       if (display21stDetail) display21stDetail.textContent = 'Awaiting valid birthdate';
+      if (exclusiveBdayBanner) exclusiveBdayBanner.classList.add('hidden');
       animationFrameId = requestAnimationFrame(updateChronometer);
       return;
     } else {
@@ -422,6 +431,9 @@
       display21stDetail.textContent = `21st on ${bday21Formatted} (~${yearsRemaining} ${yearsRemaining === 1 ? 'yr' : 'yrs'} to go)`;
     }
 
+    // --- Exclusive Celebration Banner (Birthday, Birthday Week, Birthday Month) ---
+    updateExclusiveBirthdayGreeting(birthDate, completedYears);
+
     // Planetary Ages
     planetMercury.textContent = (exactYears / 0.2408467).toFixed(2) + ' yrs';
     planetVenus.textContent = (exactYears / 0.61519726).toFixed(2) + ' yrs';
@@ -432,6 +444,66 @@
 
     // Continue high frequency animation loop
     animationFrameId = requestAnimationFrame(updateChronometer);
+  }
+
+  // --- Exclusive Celebration: Birthday, Birthday Week & Birthday Month ---
+  function updateExclusiveBirthdayGreeting(birthDate, completedYears) {
+    if (!exclusiveBdayBanner) return;
+
+    const now = new Date();
+    const bMonth = birthDate.getMonth();
+    const bDay = birthDate.getDate();
+    const nowMonth = now.getMonth();
+    const nowDay = now.getDate();
+
+    // 1. Is it the exact birthday today?
+    const isExactBirthday = (bMonth === nowMonth && bDay === nowDay);
+
+    // Calculate distance to birthday in the current year
+    const thisYearBday = new Date(now.getFullYear(), bMonth, bDay);
+    const msDiff = Math.abs(now.getTime() - thisYearBday.getTime());
+    const dayDiff = Math.floor(msDiff / (1000 * 60 * 60 * 24));
+
+    // 2. Is it birthday week? (within 7 days of the birthday)
+    const isBirthdayWeek = (!isExactBirthday && dayDiff <= 7);
+
+    // 3. Is it birthday month? (same month, but outside 7 day week)
+    const isBirthdayMonth = (bMonth === nowMonth && !isExactBirthday && !isBirthdayWeek);
+
+    // Reset theme modifier classes
+    exclusiveBdayBanner.classList.remove('hidden', 'theme-week', 'theme-month');
+
+    if (isExactBirthday) {
+      // 🎂 Level 1: TODAY IS YOUR EXACT BIRTHDAY!
+      const ageNow = completedYears;
+      bannerIcon.textContent = '🎂';
+      bannerBadge.textContent = `🎉 TODAY IS YOUR ${getOrdinal(ageNow).toUpperCase()} BIRTHDAY!`;
+      bannerTitle.textContent = `Happy ${getOrdinal(ageNow)} Birthday! 🥂✨`;
+      bannerDesc.textContent = `May your new solar orbit around the Sun overflow with radiant happiness, robust health, love, and extraordinary breakthroughs. Today is 100% YOUR special day — celebrate in style!`;
+
+      // Auto fire celebratory confetti once
+      if (!window.__birthdayConfettiFired) {
+        window.__birthdayConfettiFired = true;
+        setTimeout(triggerCelebration, 500);
+      }
+    } else if (isBirthdayWeek) {
+      // 🎈 Level 2: BIRTHDAY WEEK
+      exclusiveBdayBanner.classList.add('theme-week');
+      bannerIcon.textContent = '🎈';
+      bannerBadge.textContent = `✨ IT'S YOUR BIRTHDAY WEEK!`;
+      bannerTitle.textContent = `Happy Birthday Week! 🌟`;
+      bannerDesc.textContent = `The countdown is on and your celebration epoch has officially begun! One day is never enough to celebrate your remarkable life — cherish every single moment of your birthday week!`;
+    } else if (isBirthdayMonth) {
+      // 🗓️ Level 3: BIRTHDAY MONTH
+      exclusiveBdayBanner.classList.add('theme-month');
+      bannerIcon.textContent = '🗓️';
+      bannerBadge.textContent = `🎁 IT'S YOUR BIRTHDAY MONTH!`;
+      bannerTitle.textContent = `Welcome to Your Birthday Month! 🌟`;
+      bannerDesc.textContent = `This entire month belongs to your story, growth, and cosmic milestones. Make every day of this month count, treat yourself, and enjoy the positive vibes!`;
+    } else {
+      // 🚫 Level 4: OUTSIDE BIRTHDAY MONTH/WEEK -> EXCLUSIVELY HIDDEN
+      exclusiveBdayBanner.classList.add('hidden');
+    }
   }
 
   // --- Static/Metadata Updater (Zodiac, Weekday, Milestones) ---
@@ -579,14 +651,49 @@
     presetChips.forEach(chip => {
       chip.addEventListener('click', () => {
         const preset = chip.getAttribute('data-age-preset');
-        if (preset === 'today-relative') {
-          // Set to exactly 20 years ago today
-          const now = new Date();
+        const now = new Date();
+
+        if (preset === 'today-birthday') {
+          // Exactly today's date, 20 years ago
+          const target = new Date(now.getFullYear() - 20, now.getMonth(), now.getDate());
+          const yyyy = target.getFullYear();
+          const mm = String(target.getMonth() + 1).padStart(2, '0');
+          const dd = String(target.getDate()).padStart(2, '0');
+          birthDateInput.value = `${yyyy}-${mm}-${dd}`;
+          window.__birthdayConfettiFired = false;
+        } else if (preset === 'bday-week') {
+          // 3 days away in current month, 22 years ago
+          let targetDay = now.getDate() + 3;
+          const maxDays = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+          if (targetDay > maxDays) targetDay = now.getDate() - 3;
+          if (targetDay < 1) targetDay = 1;
+          const target = new Date(now.getFullYear() - 22, now.getMonth(), targetDay);
+          const yyyy = target.getFullYear();
+          const mm = String(target.getMonth() + 1).padStart(2, '0');
+          const dd = String(target.getDate()).padStart(2, '0');
+          birthDateInput.value = `${yyyy}-${mm}-${dd}`;
+          window.__birthdayConfettiFired = false;
+        } else if (preset === 'bday-month') {
+          // 15 days away in same month (outside 7-day week), 25 years ago
+          let targetDay = (now.getDate() > 15) ? 1 : 28;
+          if (Math.abs(targetDay - now.getDate()) <= 7) {
+            targetDay = (now.getDate() <= 10) ? 25 : 2;
+          }
+          const target = new Date(now.getFullYear() - 25, now.getMonth(), targetDay);
+          const yyyy = target.getFullYear();
+          const mm = String(target.getMonth() + 1).padStart(2, '0');
+          const dd = String(target.getDate()).padStart(2, '0');
+          birthDateInput.value = `${yyyy}-${mm}-${dd}`;
+          window.__birthdayConfettiFired = false;
+        } else if (preset === 'today-relative') {
           const twentyAgo = new Date(now.getFullYear() - 20, now.getMonth(), now.getDate());
           birthDateInput.value = twentyAgo.toISOString().split('T')[0];
+          window.__birthdayConfettiFired = false;
         } else {
           birthDateInput.value = preset;
+          window.__birthdayConfettiFired = false;
         }
+
         updateMetadata();
         triggerCelebration();
       });
@@ -611,13 +718,23 @@
     birthTimeInput.value = savedTime || '12:00:00';
 
     // Event listeners
-    birthDateInput.addEventListener('input', updateMetadata);
-    birthDateInput.addEventListener('change', updateMetadata);
+    birthDateInput.addEventListener('input', () => {
+      window.__birthdayConfettiFired = false;
+      updateMetadata();
+    });
+    birthDateInput.addEventListener('change', () => {
+      window.__birthdayConfettiFired = false;
+      updateMetadata();
+    });
     birthTimeInput.addEventListener('input', updateMetadata);
     birthTimeInput.addEventListener('change', updateMetadata);
 
     celebrateBtn.addEventListener('click', triggerCelebration);
     copySummaryBtn.addEventListener('click', copyAgeSummary);
+
+    if (bannerCelebrateBtn) {
+      bannerCelebrateBtn.addEventListener('click', triggerCelebration);
+    }
 
     if (card21stBirthday) {
       card21stBirthday.style.cursor = 'pointer';
