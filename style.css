@@ -135,13 +135,28 @@ body[data-theme="sage"] {
   --accent-glow: rgba(5, 150, 105, 0.22);
 }
 
+/* 🌾 Theme 8: Nordic Sand (Warm Minimalist Light) */
+body[data-theme="sand"] {
+  --bg-base: #f9f6f0;
+  --accent-primary: #d97706;
+  --accent-secondary: #f59e0b;
+  --accent-tertiary: #b45309;
+  --accent-gradient: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #ea580c 100%);
+  --orb-1: #fed7aa;
+  --orb-2: #fef08a;
+  --orb-3: #ffedd5;
+  --orb-4: #fde68a;
+  --accent-glow: rgba(217, 119, 6, 0.22);
+}
+
 /* ===================================================================
-   LIGHT THEME GLOBAL COMPONENT & TOKEN OVERRIDES
+   LIGHT THEME GLOBAL COMPONENT & TOKEN OVERRIDES (4 Minimalist Themes)
    Ensures supreme readability, crisp contrast, and elegant minimalist frosted glass
    =================================================================== */
 body[data-theme="pearl"],
 body[data-theme="blush"],
-body[data-theme="sage"] {
+body[data-theme="sage"],
+body[data-theme="sand"] {
   --text-primary: #0f172a;
   --text-secondary: #334155;
   --text-muted: #64748b;
@@ -157,7 +172,8 @@ body[data-theme="sage"] {
 /* Light Background Ambient Orbs */
 body[data-theme="pearl"] .glow-orb,
 body[data-theme="blush"] .glow-orb,
-body[data-theme="sage"] .glow-orb {
+body[data-theme="sage"] .glow-orb,
+body[data-theme="sand"] .glow-orb {
   mix-blend-mode: normal;
   opacity: 0.65;
   filter: blur(100px);
@@ -166,7 +182,8 @@ body[data-theme="sage"] .glow-orb {
 /* Light Grid Overlay */
 body[data-theme="pearl"] .grid-overlay,
 body[data-theme="blush"] .grid-overlay,
-body[data-theme="sage"] .grid-overlay {
+body[data-theme="sage"] .grid-overlay,
+body[data-theme="sand"] .grid-overlay {
   background-image: 
     linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
@@ -176,40 +193,51 @@ body[data-theme="sage"] .grid-overlay {
 body[data-theme="pearl"] .metric-number,
 body[data-theme="blush"] .metric-number,
 body[data-theme="sage"] .metric-number,
+body[data-theme="sand"] .metric-number,
 body[data-theme="pearl"] .sub-val,
 body[data-theme="blush"] .sub-val,
 body[data-theme="sage"] .sub-val,
+body[data-theme="sand"] .sub-val,
 body[data-theme="pearl"] .milestone-title,
 body[data-theme="blush"] .milestone-title,
 body[data-theme="sage"] .milestone-title,
+body[data-theme="sand"] .milestone-title,
 body[data-theme="pearl"] .planet-name,
 body[data-theme="blush"] .planet-name,
 body[data-theme="sage"] .planet-name,
+body[data-theme="sand"] .planet-name,
 body[data-theme="pearl"] .bday-date-str,
 body[data-theme="blush"] .bday-date-str,
 body[data-theme="sage"] .bday-date-str,
+body[data-theme="sand"] .bday-date-str,
 body[data-theme="pearl"] .stat-card-value,
 body[data-theme="blush"] .stat-card-value,
 body[data-theme="sage"] .stat-card-value,
+body[data-theme="sand"] .stat-card-value,
 body[data-theme="pearl"] .astro-details h4,
 body[data-theme="blush"] .astro-details h4,
 body[data-theme="sage"] .astro-details h4,
+body[data-theme="sand"] .astro-details h4,
 body[data-theme="pearl"] .badge-item span,
 body[data-theme="blush"] .badge-item span,
 body[data-theme="sage"] .badge-item span,
+body[data-theme="sand"] .badge-item span,
 body[data-theme="pearl"] .card-header h2,
 body[data-theme="blush"] .card-header h2,
 body[data-theme="sage"] .card-header h2,
+body[data-theme="sand"] .card-header h2,
 body[data-theme="pearl"] .section-title-wrap h3,
 body[data-theme="blush"] .section-title-wrap h3,
-body[data-theme="sage"] .section-title-wrap h3 {
+body[data-theme="sage"] .section-title-wrap h3,
+body[data-theme="sand"] .section-title-wrap h3 {
   color: #0f172a;
 }
 
 /* Light Main Chronometer Inset */
 body[data-theme="pearl"] .main-chronometer,
 body[data-theme="blush"] .main-chronometer,
-body[data-theme="sage"] .main-chronometer {
+body[data-theme="sage"] .main-chronometer,
+body[data-theme="sand"] .main-chronometer {
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow: 0 8px 25px rgba(100, 116, 139, 0.08), inset 0 1px 0 #ffffff;
@@ -219,24 +247,31 @@ body[data-theme="sage"] .main-chronometer {
 body[data-theme="pearl"] .astro-item,
 body[data-theme="blush"] .astro-item,
 body[data-theme="sage"] .astro-item,
+body[data-theme="sand"] .astro-item,
 body[data-theme="pearl"] .milestone-item,
 body[data-theme="blush"] .milestone-item,
 body[data-theme="sage"] .milestone-item,
+body[data-theme="sand"] .milestone-item,
 body[data-theme="pearl"] .metric-card,
 body[data-theme="blush"] .metric-card,
 body[data-theme="sage"] .metric-card,
+body[data-theme="sand"] .metric-card,
 body[data-theme="pearl"] .sub-unit,
 body[data-theme="blush"] .sub-unit,
 body[data-theme="sage"] .sub-unit,
+body[data-theme="sand"] .sub-unit,
 body[data-theme="pearl"] .next-bday-strip,
 body[data-theme="blush"] .next-bday-strip,
 body[data-theme="sage"] .next-bday-strip,
+body[data-theme="sand"] .next-bday-strip,
 body[data-theme="pearl"] .bday-stat-card,
 body[data-theme="blush"] .bday-stat-card,
 body[data-theme="sage"] .bday-stat-card,
+body[data-theme="sand"] .bday-stat-card,
 body[data-theme="pearl"] .planet-badge,
 body[data-theme="blush"] .planet-badge,
-body[data-theme="sage"] .planet-badge {
+body[data-theme="sage"] .planet-badge,
+body[data-theme="sand"] .planet-badge {
   background: rgba(255, 255, 255, 0.65);
   border-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 4px 18px rgba(100, 116, 139, 0.06);
@@ -245,12 +280,15 @@ body[data-theme="sage"] .planet-badge {
 body[data-theme="pearl"] .astro-item:hover,
 body[data-theme="blush"] .astro-item:hover,
 body[data-theme="sage"] .astro-item:hover,
+body[data-theme="sand"] .astro-item:hover,
 body[data-theme="pearl"] .metric-card:hover,
 body[data-theme="blush"] .metric-card:hover,
 body[data-theme="sage"] .metric-card:hover,
+body[data-theme="sand"] .metric-card:hover,
 body[data-theme="pearl"] .planet-badge:hover,
 body[data-theme="blush"] .planet-badge:hover,
-body[data-theme="sage"] .planet-badge:hover {
+body[data-theme="sage"] .planet-badge:hover,
+body[data-theme="sand"] .planet-badge:hover {
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 25px rgba(100, 116, 139, 0.12);
 }
@@ -259,12 +297,15 @@ body[data-theme="sage"] .planet-badge:hover {
 body[data-theme="pearl"] .status-indicator,
 body[data-theme="blush"] .status-indicator,
 body[data-theme="sage"] .status-indicator,
+body[data-theme="sand"] .status-indicator,
 body[data-theme="pearl"] .badge-item,
 body[data-theme="blush"] .badge-item,
 body[data-theme="sage"] .badge-item,
+body[data-theme="sand"] .badge-item,
 body[data-theme="pearl"] .planet-age,
 body[data-theme="blush"] .planet-age,
-body[data-theme="sage"] .planet-age {
+body[data-theme="sage"] .planet-age,
+body[data-theme="sand"] .planet-age {
   background: rgba(255, 255, 255, 0.85);
   border-color: rgba(0, 0, 0, 0.06);
   color: #0f172a;
@@ -273,7 +314,8 @@ body[data-theme="sage"] .planet-age {
 /* Light Input Controls */
 body[data-theme="pearl"] .input-wrapper input,
 body[data-theme="blush"] .input-wrapper input,
-body[data-theme="sage"] .input-wrapper input {
+body[data-theme="sage"] .input-wrapper input,
+body[data-theme="sand"] .input-wrapper input {
   background: rgba(255, 255, 255, 0.85);
   border-color: rgba(0, 0, 0, 0.12);
   color: #0f172a;
@@ -282,13 +324,15 @@ body[data-theme="sage"] .input-wrapper input {
 
 body[data-theme="pearl"] .input-wrapper input:focus,
 body[data-theme="blush"] .input-wrapper input:focus,
-body[data-theme="sage"] .input-wrapper input:focus {
+body[data-theme="sage"] .input-wrapper input:focus,
+body[data-theme="sand"] .input-wrapper input:focus {
   background: #ffffff;
 }
 
 body[data-theme="pearl"] .input-wrapper input::-webkit-calendar-picker-indicator,
 body[data-theme="blush"] .input-wrapper input::-webkit-calendar-picker-indicator,
-body[data-theme="sage"] .input-wrapper input::-webkit-calendar-picker-indicator {
+body[data-theme="sage"] .input-wrapper input::-webkit-calendar-picker-indicator,
+body[data-theme="sand"] .input-wrapper input::-webkit-calendar-picker-indicator {
   filter: invert(0);
   opacity: 0.65;
 }
@@ -296,7 +340,8 @@ body[data-theme="sage"] .input-wrapper input::-webkit-calendar-picker-indicator 
 /* Light Preset Chips & Theme Switcher */
 body[data-theme="pearl"] .preset-chip,
 body[data-theme="blush"] .preset-chip,
-body[data-theme="sage"] .preset-chip {
+body[data-theme="sage"] .preset-chip,
+body[data-theme="sand"] .preset-chip {
   background: rgba(255, 255, 255, 0.75);
   border-color: rgba(0, 0, 0, 0.08);
   color: #334155;
@@ -304,7 +349,8 @@ body[data-theme="sage"] .preset-chip {
 
 body[data-theme="pearl"] .preset-chip:hover,
 body[data-theme="blush"] .preset-chip:hover,
-body[data-theme="sage"] .preset-chip:hover {
+body[data-theme="sage"] .preset-chip:hover,
+body[data-theme="sand"] .preset-chip:hover {
   background: #ffffff;
   color: var(--accent-primary);
   border-color: var(--accent-primary);
@@ -312,23 +358,27 @@ body[data-theme="sage"] .preset-chip:hover {
 
 body[data-theme="pearl"] .theme-switcher,
 body[data-theme="blush"] .theme-switcher,
-body[data-theme="sage"] .theme-switcher {
+body[data-theme="sage"] .theme-switcher,
+body[data-theme="sand"] .theme-switcher {
   background: rgba(255, 255, 255, 0.8);
   border-color: rgba(0, 0, 0, 0.08);
 }
 
 body[data-theme="pearl"] .theme-btn.active,
 body[data-theme="blush"] .theme-btn.active,
-body[data-theme="sage"] .theme-btn.active {
+body[data-theme="sage"] .theme-btn.active,
+body[data-theme="sand"] .theme-btn.active {
   box-shadow: 0 0 0 2px #0f172a;
 }
 
 body[data-theme="pearl"] .glass-btn,
 body[data-theme="blush"] .glass-btn,
 body[data-theme="sage"] .glass-btn,
+body[data-theme="sand"] .glass-btn,
 body[data-theme="pearl"] .footer-action,
 body[data-theme="blush"] .footer-action,
-body[data-theme="sage"] .footer-action {
+body[data-theme="sage"] .footer-action,
+body[data-theme="sand"] .footer-action {
   background: rgba(255, 255, 255, 0.8);
   border-color: rgba(0, 0, 0, 0.08);
   color: #0f172a;
@@ -336,14 +386,16 @@ body[data-theme="sage"] .footer-action {
 
 body[data-theme="pearl"] .progress-track,
 body[data-theme="blush"] .progress-track,
-body[data-theme="sage"] .progress-track {
+body[data-theme="sage"] .progress-track,
+body[data-theme="sand"] .progress-track {
   background: rgba(0, 0, 0, 0.07);
 }
 
 /* Light Milestone 21 Card */
 body[data-theme="pearl"] .milestone-21-card,
 body[data-theme="blush"] .milestone-21-card,
-body[data-theme="sage"] .milestone-21-card {
+body[data-theme="sage"] .milestone-21-card,
+body[data-theme="sand"] .milestone-21-card {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 255, 255, 0.75) 100%);
   border-color: rgba(255, 215, 0, 0.5);
 }
@@ -587,6 +639,7 @@ body {
 .pearl-dot { background: linear-gradient(135deg, #0284c7, #818cf8); }
 .blush-dot { background: linear-gradient(135deg, #fb7185, #f59e0b); }
 .sage-dot { background: linear-gradient(135deg, #10b981, #a3e635); }
+.sand-dot { background: linear-gradient(135deg, #d97706, #f59e0b); }
 
 .theme-mode-label {
   font-family: var(--font-mono);

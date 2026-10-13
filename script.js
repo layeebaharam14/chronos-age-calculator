@@ -618,8 +618,10 @@
     });
   }
 
-  // --- Theme Switching ---
+  // --- Theme Switching (4 Dark, 4 Light) ---
   function initThemeSwitcher() {
+    const lightThemes = ['pearl', 'blush', 'sage', 'sand'];
+
     themeButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const themeName = btn.getAttribute('data-theme-name');
@@ -634,16 +636,23 @@
       });
     });
 
-    // Load saved theme
+    // Check saved theme or freshly pick any one of the light themes
     try {
-      const savedTheme = localStorage.getItem('chronos_theme');
-      if (savedTheme) {
-        document.body.setAttribute('data-theme', savedTheme);
-        themeButtons.forEach(b => {
-          b.classList.toggle('active', b.getAttribute('data-theme-name') === savedTheme);
-        });
+      let savedTheme = localStorage.getItem('chronos_theme');
+      if (!savedTheme) {
+        // Fresh visit: randomly select any one of the 4 minimalist light themes!
+        savedTheme = lightThemes[Math.floor(Math.random() * lightThemes.length)];
       }
-    } catch (e) {}
+
+      document.body.setAttribute('data-theme', savedTheme);
+      themeButtons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-theme-name') === savedTheme);
+      });
+    } catch (e) {
+      // Fallback: pick any one of the light themes
+      const randomLight = lightThemes[Math.floor(Math.random() * lightThemes.length)];
+      document.body.setAttribute('data-theme', randomLight);
+    }
   }
 
   // --- Preset Date Chips ---
