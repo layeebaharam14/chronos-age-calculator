@@ -103,14 +103,22 @@ Discover your age based on planetary revolution periods:
 
 ## 🎨 Dynamic Color Themes
 
-Switch seamlessly between four curated luminous glass palettes:
+Switch seamlessly between seven curated luminous dark and minimalist light glass palettes:
 
+### 🌌 Dark Aura Modes
 | Theme | Inspiration | Dominant Palette |
 | :--- | :--- | :--- |
 | **Aurora Borealis** | Polar electromagnetic lights | Cyan (`#00f2fe`), Azure (`#4facfe`), Violet (`#9b51e0`) |
 | **Cyber Violet** | Neon synthwave aesthetic | Neon Lavender (`#c084fc`), Magenta (`#f43f5e`), Purple (`#a855f7`) |
 | **Solar Flare** | Deep dusk sunset radiance | Warm Gold (`#facc15`), Amber (`#fb923c`), Crimson (`#e11d48`) |
 | **Neo Emerald** | Bioluminescent rainforest | Jade Emerald (`#10b981`), Cyan (`#06b6d4`), Lime (`#84cc16`) |
+
+### ☁️ Minimalist Aesthetic Light Modes
+| Theme | Inspiration | Dominant Palette |
+| :--- | :--- | :--- |
+| **Frosted Pearl** | Alabaster & porcelain minimalist glass | Sky Cyan (`#0284c7`), Soft Iris (`#6366f1`), Lavender (`#8b5cf6`) |
+| **Sakura Blush** | Aesthetic Rose Quartz & Champagne | Crimson Rose (`#e11d48`), Coral Pink (`#f43f5e`), Warm Honey (`#f59e0b`) |
+| **Zen Sage** | Calming clean organic mineral mist | Forest Jade (`#059669`), Seafoam Teal (`#0d9488`), Fresh Lime (`#65a30d`) |
 
 ---
 

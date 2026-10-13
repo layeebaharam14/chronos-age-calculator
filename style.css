@@ -93,6 +93,261 @@ body[data-theme="emerald"] {
   --accent-glow: rgba(16, 185, 129, 0.35);
 }
 
+/* ☁️ Theme 5: Frosted Pearl (Minimalist Light) */
+body[data-theme="pearl"] {
+  --bg-base: #edf2f7;
+  --accent-primary: #0284c7;
+  --accent-secondary: #6366f1;
+  --accent-tertiary: #8b5cf6;
+  --accent-gradient: linear-gradient(135deg, #0284c7 0%, #6366f1 55%, #8b5cf6 100%);
+  --orb-1: #93c5fd;
+  --orb-2: #c4b5fd;
+  --orb-3: #a5b4fc;
+  --orb-4: #bae6fd;
+  --accent-glow: rgba(2, 132, 199, 0.25);
+}
+
+/* 🌸 Theme 6: Sakura Blush (Aesthetic Rose Quartz Light) */
+body[data-theme="blush"] {
+  --bg-base: #fdf2f4;
+  --accent-primary: #e11d48;
+  --accent-secondary: #f43f5e;
+  --accent-tertiary: #f59e0b;
+  --accent-gradient: linear-gradient(135deg, #e11d48 0%, #f43f5e 50%, #f59e0b 100%);
+  --orb-1: #fca5a5;
+  --orb-2: #fbcfe8;
+  --orb-3: #fde68a;
+  --orb-4: #fecdd3;
+  --accent-glow: rgba(225, 29, 72, 0.22);
+}
+
+/* 🍵 Theme 7: Zen Sage (Clean Organic Mineral Light) */
+body[data-theme="sage"] {
+  --bg-base: #eef5f0;
+  --accent-primary: #059669;
+  --accent-secondary: #0d9488;
+  --accent-tertiary: #65a30d;
+  --accent-gradient: linear-gradient(135deg, #059669 0%, #0d9488 50%, #65a30d 100%);
+  --orb-1: #86efac;
+  --orb-2: #99f6e4;
+  --orb-3: #bef264;
+  --orb-4: #a7f3d0;
+  --accent-glow: rgba(5, 150, 105, 0.22);
+}
+
+/* ===================================================================
+   LIGHT THEME GLOBAL COMPONENT & TOKEN OVERRIDES
+   Ensures supreme readability, crisp contrast, and elegant minimalist frosted glass
+   =================================================================== */
+body[data-theme="pearl"],
+body[data-theme="blush"],
+body[data-theme="sage"] {
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+
+  --glass-bg: rgba(255, 255, 255, 0.68);
+  --glass-bg-hover: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --glass-border-hover: rgba(0, 0, 0, 0.14);
+  --glass-shadow: 0 16px 40px rgba(100, 116, 139, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.85);
+  --glass-inset: rgba(255, 255, 255, 0.6);
+}
+
+/* Light Background Ambient Orbs */
+body[data-theme="pearl"] .glow-orb,
+body[data-theme="blush"] .glow-orb,
+body[data-theme="sage"] .glow-orb {
+  mix-blend-mode: normal;
+  opacity: 0.65;
+  filter: blur(100px);
+}
+
+/* Light Grid Overlay */
+body[data-theme="pearl"] .grid-overlay,
+body[data-theme="blush"] .grid-overlay,
+body[data-theme="sage"] .grid-overlay {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+}
+
+/* Light Theme Card Elements & Typography */
+body[data-theme="pearl"] .metric-number,
+body[data-theme="blush"] .metric-number,
+body[data-theme="sage"] .metric-number,
+body[data-theme="pearl"] .sub-val,
+body[data-theme="blush"] .sub-val,
+body[data-theme="sage"] .sub-val,
+body[data-theme="pearl"] .milestone-title,
+body[data-theme="blush"] .milestone-title,
+body[data-theme="sage"] .milestone-title,
+body[data-theme="pearl"] .planet-name,
+body[data-theme="blush"] .planet-name,
+body[data-theme="sage"] .planet-name,
+body[data-theme="pearl"] .bday-date-str,
+body[data-theme="blush"] .bday-date-str,
+body[data-theme="sage"] .bday-date-str,
+body[data-theme="pearl"] .stat-card-value,
+body[data-theme="blush"] .stat-card-value,
+body[data-theme="sage"] .stat-card-value,
+body[data-theme="pearl"] .astro-details h4,
+body[data-theme="blush"] .astro-details h4,
+body[data-theme="sage"] .astro-details h4,
+body[data-theme="pearl"] .badge-item span,
+body[data-theme="blush"] .badge-item span,
+body[data-theme="sage"] .badge-item span,
+body[data-theme="pearl"] .card-header h2,
+body[data-theme="blush"] .card-header h2,
+body[data-theme="sage"] .card-header h2,
+body[data-theme="pearl"] .section-title-wrap h3,
+body[data-theme="blush"] .section-title-wrap h3,
+body[data-theme="sage"] .section-title-wrap h3 {
+  color: #0f172a;
+}
+
+/* Light Main Chronometer Inset */
+body[data-theme="pearl"] .main-chronometer,
+body[data-theme="blush"] .main-chronometer,
+body[data-theme="sage"] .main-chronometer {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 25px rgba(100, 116, 139, 0.08), inset 0 1px 0 #ffffff;
+}
+
+/* Light Inset Containers */
+body[data-theme="pearl"] .astro-item,
+body[data-theme="blush"] .astro-item,
+body[data-theme="sage"] .astro-item,
+body[data-theme="pearl"] .milestone-item,
+body[data-theme="blush"] .milestone-item,
+body[data-theme="sage"] .milestone-item,
+body[data-theme="pearl"] .metric-card,
+body[data-theme="blush"] .metric-card,
+body[data-theme="sage"] .metric-card,
+body[data-theme="pearl"] .sub-unit,
+body[data-theme="blush"] .sub-unit,
+body[data-theme="sage"] .sub-unit,
+body[data-theme="pearl"] .next-bday-strip,
+body[data-theme="blush"] .next-bday-strip,
+body[data-theme="sage"] .next-bday-strip,
+body[data-theme="pearl"] .bday-stat-card,
+body[data-theme="blush"] .bday-stat-card,
+body[data-theme="sage"] .bday-stat-card,
+body[data-theme="pearl"] .planet-badge,
+body[data-theme="blush"] .planet-badge,
+body[data-theme="sage"] .planet-badge {
+  background: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 18px rgba(100, 116, 139, 0.06);
+}
+
+body[data-theme="pearl"] .astro-item:hover,
+body[data-theme="blush"] .astro-item:hover,
+body[data-theme="sage"] .astro-item:hover,
+body[data-theme="pearl"] .metric-card:hover,
+body[data-theme="blush"] .metric-card:hover,
+body[data-theme="sage"] .metric-card:hover,
+body[data-theme="pearl"] .planet-badge:hover,
+body[data-theme="blush"] .planet-badge:hover,
+body[data-theme="sage"] .planet-badge:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 25px rgba(100, 116, 139, 0.12);
+}
+
+/* Light Status Indicators & Badges */
+body[data-theme="pearl"] .status-indicator,
+body[data-theme="blush"] .status-indicator,
+body[data-theme="sage"] .status-indicator,
+body[data-theme="pearl"] .badge-item,
+body[data-theme="blush"] .badge-item,
+body[data-theme="sage"] .badge-item,
+body[data-theme="pearl"] .planet-age,
+body[data-theme="blush"] .planet-age,
+body[data-theme="sage"] .planet-age {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.06);
+  color: #0f172a;
+}
+
+/* Light Input Controls */
+body[data-theme="pearl"] .input-wrapper input,
+body[data-theme="blush"] .input-wrapper input,
+body[data-theme="sage"] .input-wrapper input {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #0f172a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+body[data-theme="pearl"] .input-wrapper input:focus,
+body[data-theme="blush"] .input-wrapper input:focus,
+body[data-theme="sage"] .input-wrapper input:focus {
+  background: #ffffff;
+}
+
+body[data-theme="pearl"] .input-wrapper input::-webkit-calendar-picker-indicator,
+body[data-theme="blush"] .input-wrapper input::-webkit-calendar-picker-indicator,
+body[data-theme="sage"] .input-wrapper input::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+  opacity: 0.65;
+}
+
+/* Light Preset Chips & Theme Switcher */
+body[data-theme="pearl"] .preset-chip,
+body[data-theme="blush"] .preset-chip,
+body[data-theme="sage"] .preset-chip {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #334155;
+}
+
+body[data-theme="pearl"] .preset-chip:hover,
+body[data-theme="blush"] .preset-chip:hover,
+body[data-theme="sage"] .preset-chip:hover {
+  background: #ffffff;
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+body[data-theme="pearl"] .theme-switcher,
+body[data-theme="blush"] .theme-switcher,
+body[data-theme="sage"] .theme-switcher {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="pearl"] .theme-btn.active,
+body[data-theme="blush"] .theme-btn.active,
+body[data-theme="sage"] .theme-btn.active {
+  box-shadow: 0 0 0 2px #0f172a;
+}
+
+body[data-theme="pearl"] .glass-btn,
+body[data-theme="blush"] .glass-btn,
+body[data-theme="sage"] .glass-btn,
+body[data-theme="pearl"] .footer-action,
+body[data-theme="blush"] .footer-action,
+body[data-theme="sage"] .footer-action {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+
+body[data-theme="pearl"] .progress-track,
+body[data-theme="blush"] .progress-track,
+body[data-theme="sage"] .progress-track {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+/* Light Milestone 21 Card */
+body[data-theme="pearl"] .milestone-21-card,
+body[data-theme="blush"] .milestone-21-card,
+body[data-theme="sage"] .milestone-21-card {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 255, 255, 0.75) 100%);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
 /* ---------- 2. RESET & BASE ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -329,6 +584,25 @@ body {
 .cyber-dot { background: linear-gradient(135deg, #c084fc, #f43f5e); }
 .sunset-dot { background: linear-gradient(135deg, #facc15, #fb923c); }
 .emerald-dot { background: linear-gradient(135deg, #10b981, #06b6d4); }
+.pearl-dot { background: linear-gradient(135deg, #0284c7, #818cf8); }
+.blush-dot { background: linear-gradient(135deg, #fb7185, #f59e0b); }
+.sage-dot { background: linear-gradient(135deg, #10b981, #a3e635); }
+
+.theme-mode-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 2px;
+}
+
+.theme-separator {
+  width: 1px;
+  height: 14px;
+  background: var(--glass-border);
+  margin: 0 3px;
+}
 
 .glass-btn {
   background: rgba(255, 255, 255, 0.08);
