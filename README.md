@@ -3,7 +3,7 @@
 # ⏳ Chronos • Visual Real-Time Age Calculator
 ### *A high-precision, glassmorphic temporal engine and cosmic life dashboard*
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live_Website-00f2fe?style=for-the-badge&logo=googlechrome&logoColor=white)](https://layeebaharam14.github.io/chronos-age-calculator/)
+[![Live on Netlify](https://img.shields.io/badge/Netlify-Live_Demo-00AD9F?style=for-the-badge&logo=netlify&logoColor=white)](https://chronos-age-calculator.netlify.app/)
 [![License](https://img.shields.io/badge/License-MIT-9b51e0?style=for-the-badge)](LICENSE)
 [![Vanilla JS](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![CSS3 Glassmorphism](https://img.shields.io/badge/Style-Glassmorphism_CSS3-4facfe?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -15,7 +15,7 @@
   <b>Chronos</b> is not just a standard age calculator. It is an immersive, aesthetic temporal explorer crafted with multi-layered <b>Glassmorphism UI</b>, continuous real-time millisecond tickers, cumulative biological metrics, planetary orbits, and astrological milestones.
 </p>
 
-[Explore Live Demo](https://layeebaharam14.github.io/chronos-age-calculator/) • [Key Features](#-key-features) • [Quick Start](#-quick-start) • [Color Themes](#-dynamic-color-themes) • [Author](#-author)
+[🚀 Explore Live on Netlify](https://chronos-age-calculator.netlify.app/) • [Key Features](#-key-features) • [Quick Start](#-quick-start) • [Color Themes](#-dynamic-color-themes) • [Author](#-author)
 
 ---
 
@@ -154,12 +154,14 @@ Open your browser at `http://localhost:3000`.
 
 ---
 
-## 🌐 Deploy to GitHub Pages
+## 🌐 Live Deployment
 
-1. Navigate to your repository settings: **Settings** > **Pages**.
-2. Under **Build and deployment > Branch**, choose `main` and select folder `/ (root)`.
-3. Click **Save**.
-4. Your site will be live at `https://layeebaharam14.github.io/chronos-age-calculator/`.
+Chronos is deployed and available globally on **Netlify**:
+
+👉 **[https://chronos-age-calculator.netlify.app/](https://chronos-age-calculator.netlify.app/)**
+
+### Continuous Deployment
+Connected directly with Netlify's high-speed global edge network. Any commit pushed to the `main` branch automatically triggers an instant production build and deployment.
 
 ---
 
