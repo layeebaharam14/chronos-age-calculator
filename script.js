@@ -91,6 +91,19 @@
   const themeButtons = document.querySelectorAll('.theme-btn');
   const presetChips = document.querySelectorAll('.preset-chip');
 
+  // Multi-View Architecture & Transitions Elements
+  const landingView = document.getElementById('landing-view');
+  const loadingView = document.getElementById('loading-view');
+  const dashboardView = document.getElementById('dashboard-view');
+  const launchChronosBtn = document.getElementById('launch-chronos-btn');
+  const ageForm = document.getElementById('age-form');
+  const landingError = document.getElementById('landing-error');
+  const loadingStatusText = document.getElementById('loading-status-text');
+  const loadingBarFill = document.getElementById('loading-bar-fill');
+  const dashboardOriginText = document.getElementById('dashboard-origin-text');
+  const dashboardReenterBtn = document.getElementById('dashboard-reenter-btn');
+  const headerReenterBtn = document.getElementById('header-reenter-btn');
+
   // Animation Frame Handle
   let animationFrameId = null;
 
@@ -669,7 +682,6 @@
           const mm = String(target.getMonth() + 1).padStart(2, '0');
           const dd = String(target.getDate()).padStart(2, '0');
           birthDateInput.value = `${yyyy}-${mm}-${dd}`;
-          window.__birthdayConfettiFired = false;
         } else if (preset === 'bday-week') {
           // 3 days away in current month, 22 years ago
           let targetDay = now.getDate() + 3;
@@ -681,7 +693,6 @@
           const mm = String(target.getMonth() + 1).padStart(2, '0');
           const dd = String(target.getDate()).padStart(2, '0');
           birthDateInput.value = `${yyyy}-${mm}-${dd}`;
-          window.__birthdayConfettiFired = false;
         } else if (preset === 'bday-month') {
           // 15 days away in same month (outside 7-day week), 25 years ago
           let targetDay = (now.getDate() > 15) ? 1 : 28;
@@ -693,29 +704,160 @@
           const mm = String(target.getMonth() + 1).padStart(2, '0');
           const dd = String(target.getDate()).padStart(2, '0');
           birthDateInput.value = `${yyyy}-${mm}-${dd}`;
-          window.__birthdayConfettiFired = false;
         } else if (preset === 'today-relative') {
           const twentyAgo = new Date(now.getFullYear() - 20, now.getMonth(), now.getDate());
           birthDateInput.value = twentyAgo.toISOString().split('T')[0];
-          window.__birthdayConfettiFired = false;
         } else {
           birthDateInput.value = preset;
-          window.__birthdayConfettiFired = false;
         }
 
-        updateMetadata();
-        triggerCelebration();
+        window.__birthdayConfettiFired = false;
+        if (landingError) landingError.classList.add('hidden');
       });
     });
+  }
+
+  // --- Multi-View Workflow Transitions (Landing -> 2s Loader -> Dashboard) ---
+  function showLandingView() {
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+    if (dashboardView) dashboardView.classList.add('hidden');
+    if (loadingView) loadingView.classList.add('hidden');
+    if (headerReenterBtn) headerReenterBtn.classList.add('hidden');
+    if (landingView) landingView.classList.remove('hidden');
+    if (landingError) landingError.classList.add('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function startLaunchSequence() {
+    const dateVal = birthDateInput ? birthDateInput.value : '';
+    if (!dateVal) {
+      if (landingError) {
+        landingError.textContent = '⚠️ Please enter your date of birth to calculate your timeline!';
+        landingError.classList.remove('hidden');
+      }
+      if (birthDateInput) birthDateInput.focus();
+      return;
+    }
+
+    const timeVal = (birthTimeInput && birthTimeInput.value) || '00:00:00';
+    const [hours, minutes, seconds = '00'] = timeVal.split(':');
+    const [yearStr, monthStr, dayStr] = dateVal.split('-');
+    const birthDate = new Date(
+      parseInt(yearStr, 10),
+      parseInt(monthStr, 10) - 1,
+      parseInt(dayStr, 10),
+      parseInt(hours, 10) || 0,
+      parseInt(minutes, 10) || 0,
+      parseInt(seconds, 10) || 0
+    );
+
+    const now = new Date();
+    if (isNaN(birthDate.getTime()) || birthDate > now) {
+      if (landingError) {
+        landingError.textContent = '⚠️ Please choose a valid date of birth in the past!';
+        landingError.classList.remove('hidden');
+      }
+      if (birthDateInput) birthDateInput.focus();
+      return;
+    }
+
+    if (landingError) landingError.classList.add('hidden');
+
+    // Save to localStorage
+    try {
+      localStorage.setItem('chronos_birth_date', dateVal);
+      if (birthTimeInput && birthTimeInput.value) {
+        localStorage.setItem('chronos_birth_time', birthTimeInput.value);
+      }
+    } catch (e) {}
+
+    // Switch to Loading View
+    if (landingView) landingView.classList.add('hidden');
+    if (dashboardView) dashboardView.classList.add('hidden');
+    if (headerReenterBtn) headerReenterBtn.classList.add('hidden');
+    if (loadingView) loadingView.classList.remove('hidden');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 2-Second Futuristic Loading Transition (2000ms)
+    const duration = 2000;
+    const startTime = performance.now();
+
+    const loadingStages = [
+      { pct: 0, text: 'Synchronizing celestial coordinates...' },
+      { pct: 25, text: 'Aligning planetary ephemeris and solar orbits...' },
+      { pct: 55, text: 'Calculating life milestone epochs...' },
+      { pct: 85, text: 'Synthesizing real-time lifetime metrics...' },
+      { pct: 100, text: 'Unlocking Chronos Temporal Portal ✨' }
+    ];
+
+    function animateLoader(nowTime) {
+      const elapsed = nowTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const percentage = Math.floor(progress * 100);
+
+      if (loadingBarFill) {
+        loadingBarFill.style.width = percentage + '%';
+      }
+
+      for (let i = loadingStages.length - 1; i >= 0; i--) {
+        if (percentage >= loadingStages[i].pct) {
+          if (loadingStatusText) {
+            loadingStatusText.textContent = loadingStages[i].text;
+          }
+          break;
+        }
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(animateLoader);
+      } else {
+        setTimeout(revealDashboard, 80);
+      }
+    }
+
+    requestAnimationFrame(animateLoader);
+  }
+
+  function revealDashboard() {
+    if (loadingView) loadingView.classList.add('hidden');
+    if (landingView) landingView.classList.add('hidden');
+    if (dashboardView) dashboardView.classList.remove('hidden');
+    if (headerReenterBtn) headerReenterBtn.classList.remove('hidden');
+
+    // Format origin text
+    const dateVal = birthDateInput ? birthDateInput.value : '';
+    if (dateVal && dashboardOriginText) {
+      const [yearStr, monthStr, dayStr] = dateVal.split('-');
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const mIdx = parseInt(monthStr, 10) - 1;
+      const originDisplay = `${months[mIdx] || ''} ${parseInt(dayStr, 10)}, ${yearStr}${birthTimeInput && birthTimeInput.value ? ' • ' + birthTimeInput.value : ''}`;
+      dashboardOriginText.textContent = originDisplay;
+    }
+
+    // Reset confetti flag and update all metrics
+    window.__birthdayConfettiFired = false;
+    updateMetadata();
+
+    // Start live chronometer
+    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    animationFrameId = requestAnimationFrame(updateChronometer);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   // --- Initialization ---
   function init() {
     // Set max date on birth date input to today
     const todayStr = new Date().toISOString().split('T')[0];
-    birthDateInput.setAttribute('max', todayStr);
+    if (birthDateInput) {
+      birthDateInput.setAttribute('max', todayStr);
+    }
 
-    // Check saved birthdate or set default (e.g. 2000-01-01)
+    // Check saved birthdate if available (prefill for convenience, but keep on landing view)
     let savedDate = null;
     let savedTime = '12:00:00';
     try {
@@ -723,20 +865,41 @@
       savedTime = localStorage.getItem('chronos_birth_time') || '12:00:00';
     } catch (e) {}
 
-    birthDateInput.value = savedDate || '2001-06-15';
-    birthTimeInput.value = savedTime || '12:00:00';
+    if (birthDateInput) {
+      birthDateInput.value = savedDate || '';
+    }
+    if (birthTimeInput) {
+      birthTimeInput.value = savedTime || '12:00:00';
+    }
 
-    // Event listeners
-    birthDateInput.addEventListener('input', () => {
-      window.__birthdayConfettiFired = false;
-      updateMetadata();
-    });
-    birthDateInput.addEventListener('change', () => {
-      window.__birthdayConfettiFired = false;
-      updateMetadata();
-    });
-    birthTimeInput.addEventListener('input', updateMetadata);
-    birthTimeInput.addEventListener('change', updateMetadata);
+    // Launch & Transition Events
+    if (launchChronosBtn) {
+      launchChronosBtn.addEventListener('click', startLaunchSequence);
+    }
+    if (ageForm) {
+      ageForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        startLaunchSequence();
+      });
+    }
+
+    // Re-enter Birthday Events (from Dashboard or Header)
+    if (dashboardReenterBtn) {
+      dashboardReenterBtn.addEventListener('click', showLandingView);
+    }
+    if (headerReenterBtn) {
+      headerReenterBtn.addEventListener('click', showLandingView);
+    }
+
+    // Input changes on landing page hide errors
+    if (birthDateInput) {
+      birthDateInput.addEventListener('input', () => {
+        if (landingError) landingError.classList.add('hidden');
+      });
+      birthDateInput.addEventListener('change', () => {
+        if (landingError) landingError.classList.add('hidden');
+      });
+    }
 
     celebrateBtn.addEventListener('click', triggerCelebration);
     copySummaryBtn.addEventListener('click', copyAgeSummary);
@@ -754,12 +917,8 @@
     initThemeSwitcher();
     initPresets();
 
-    // Initial render
-    updateMetadata();
-
-    // Start live chronometer loop
-    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    animationFrameId = requestAnimationFrame(updateChronometer);
+    // Always start on Landing View when website is opened
+    showLandingView();
   }
 
   // Run when DOM is ready
