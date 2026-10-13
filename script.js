@@ -23,12 +23,22 @@
 
   // Next Birthday Elements
   const nextBdayDate = document.getElementById('next-bday-date');
+  const nextBdayLabel = document.getElementById('next-bday-label');
   const bdayDays = document.getElementById('bday-days');
   const bdayHours = document.getElementById('bday-hours');
   const bdayMins = document.getElementById('bday-mins');
   const bdaySecs = document.getElementById('bday-secs');
   const bdayProgressBar = document.getElementById('bday-progress-bar');
   const bdayProgressPct = document.getElementById('bday-progress-pct');
+
+  // Milestone Highlight Elements (Completed Years, Which Birthday, 21st Birthday)
+  const displayCompletedYears = document.getElementById('display-completed-years');
+  const displayLivingYear = document.getElementById('display-living-year');
+  const displayWhichBday = document.getElementById('display-which-bday');
+  const displayBdayInSub = document.getElementById('display-bday-in-sub');
+  const display21stStatus = document.getElementById('display-21st-status');
+  const display21stDetail = document.getElementById('display-21st-detail');
+  const card21stBirthday = document.getElementById('card-21st-birthday');
 
   // Cumulative Metrics
   const totalDays = document.getElementById('total-days');
@@ -83,6 +93,14 @@
 
   function padZero(num, length = 2) {
     return String(Math.floor(num)).padStart(length, '0');
+  }
+
+  // --- Helper: Format Ordinal Numbers (1st, 2nd, 3rd, 21st, etc.) ---
+  function getOrdinal(num) {
+    const n = Math.floor(num);
+    const s = ["th", "st", "nd", "rd"];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
   }
 
   // --- Western Zodiac Calculation ---
@@ -236,6 +254,12 @@
       valMinutes.textContent = '00';
       valSeconds.textContent = '00';
       valMillis.textContent = '000';
+      if (displayCompletedYears) displayCompletedYears.textContent = '--';
+      if (displayLivingYear) displayLivingYear.textContent = 'Date is in future';
+      if (displayWhichBday) displayWhichBday.textContent = '--';
+      if (displayBdayInSub) displayBdayInSub.textContent = 'Awaiting valid date';
+      if (display21stStatus) display21stStatus.textContent = '--';
+      if (display21stDetail) display21stDetail.textContent = 'Awaiting valid birthdate';
       animationFrameId = requestAnimationFrame(updateChronometer);
       return;
     } else {
@@ -358,6 +382,46 @@
     bdayProgressBar.style.width = `${pct.toFixed(2)}%`;
     bdayProgressPct.textContent = `${pct.toFixed(1)}%`;
 
+    // --- Exactly How Many Years Completed & Living Year ---
+    const completedYears = y;
+    const livingYear = y + 1;
+    displayCompletedYears.textContent = `${completedYears} ${completedYears === 1 ? 'Year' : 'Years'} Full`;
+    displayLivingYear.textContent = `Currently in your ${getOrdinal(livingYear)} year of life`;
+
+    // --- Which Birthday is Next ---
+    const nextBdayNum = completedYears + 1;
+    const nextOrdinal = getOrdinal(nextBdayNum);
+    displayWhichBday.textContent = `${nextOrdinal} Birthday`;
+    if (bDays === 0) {
+      displayBdayInSub.textContent = `🎉 Today is your ${nextOrdinal} Birthday!`;
+      if (nextBdayLabel) nextBdayLabel.textContent = `🎉 Today's Birthday Celebration!`;
+    } else {
+      displayBdayInSub.textContent = `In ${bDays} days (${bHours}h ${bMins}m)`;
+      if (nextBdayLabel) nextBdayLabel.textContent = `Countdown to ${nextOrdinal} Birthday:`;
+    }
+
+    // --- 21st Birthday Milestone Calculation ---
+    const bday21 = new Date(birthDate.getFullYear() + 21, birthDate.getMonth(), birthDate.getDate(), birthDate.getHours(), birthDate.getMinutes(), 0);
+    const bday21Formatted = bday21.toLocaleDateString('en-US', options);
+
+    if (completedYears > 21) {
+      card21stBirthday.classList.remove('active-now');
+      const yearsAgo = completedYears - 21;
+      display21stStatus.textContent = `Achieved ✓`;
+      display21stDetail.textContent = `Turned 21 on ${bday21Formatted} (${yearsAgo} ${yearsAgo === 1 ? 'yr' : 'yrs'} ago)`;
+    } else if (completedYears === 21) {
+      card21stBirthday.classList.add('active-now');
+      display21stStatus.textContent = `Currently 21! 🥂`;
+      display21stDetail.textContent = `Turned 21 on ${bday21Formatted} • Milestone year!`;
+    } else {
+      card21stBirthday.classList.remove('active-now');
+      const msUntil21 = bday21.getTime() - now.getTime();
+      const daysUntil21 = Math.floor(msUntil21 / (1000 * 60 * 60 * 24));
+      const yearsRemaining = 21 - completedYears;
+      display21stStatus.textContent = `In ${formatNum(daysUntil21)} days`;
+      display21stDetail.textContent = `21st on ${bday21Formatted} (~${yearsRemaining} ${yearsRemaining === 1 ? 'yr' : 'yrs'} to go)`;
+    }
+
     // Planetary Ages
     planetMercury.textContent = (exactYears / 0.2408467).toFixed(2) + ' yrs';
     planetVenus.textContent = (exactYears / 0.61519726).toFixed(2) + ' yrs';
@@ -459,11 +523,16 @@
     const gen = generationBadge.textContent;
     const western = zodiacName.textContent;
     const chinese = chineseName.textContent;
+    const completedStr = displayCompletedYears ? displayCompletedYears.textContent : `${y} Years`;
+    const nextBdayStr = displayWhichBday ? displayWhichBday.textContent : 'Next Birthday';
+    const bday21Str = display21stStatus ? `${display21stStatus.textContent} (${display21stDetail.textContent})` : '';
 
     const summaryText = `✨ Chronos Age Profile ✨\n` +
-      `Age: ${y} years, ${m} months, ${d} days old\n` +
-      `Era: ${gen}\n` +
-      `Zodiac: ${western} | Chinese Zodiac: ${chinese}\n` +
+      `Completed: ${completedStr} (Currently in ${displayLivingYear.textContent})\n` +
+      `Next Milestone: ${nextBdayStr} (${displayBdayInSub.textContent})\n` +
+      `21st Birthday: ${bday21Str}\n` +
+      `Current Chrono: ${y} years, ${m} months, ${d} days old\n` +
+      `Era: ${gen} | Zodiac: ${western} | Chinese: ${chinese}\n` +
       `Total Days Lived: ${totalDays.textContent} days\n` +
       `Calculated in real-time with Chronos.`;
 
@@ -549,6 +618,12 @@
 
     celebrateBtn.addEventListener('click', triggerCelebration);
     copySummaryBtn.addEventListener('click', copyAgeSummary);
+
+    if (card21stBirthday) {
+      card21stBirthday.style.cursor = 'pointer';
+      card21stBirthday.setAttribute('title', 'Click to celebrate 21st Milestone! 🥂');
+      card21stBirthday.addEventListener('click', triggerCelebration);
+    }
 
     initThemeSwitcher();
     initPresets();

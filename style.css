@@ -728,6 +728,103 @@ body {
   margin-top: 2px;
 }
 
+/* Birthday & Milestone Highlights (Completed Years, Next Birthday, 21st Birthday) */
+.birthday-milestone-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.bday-stat-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.bday-stat-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-2px);
+}
+
+.stat-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-badge-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.stat-badge-tag.upcoming-tag {
+  color: var(--accent-primary);
+  background: rgba(0, 242, 254, 0.12);
+}
+
+.stat-badge-tag.special-21-tag {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.stat-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.stat-card-value {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.stat-card-sub {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* 21st Milestone Card Special Glow */
+.milestone-21-card {
+  border-color: rgba(255, 215, 0, 0.25);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.milestone-21-card:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.15);
+}
+
+.milestone-21-card.active-now {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+  animation: goldPulse 2s infinite ease-in-out;
+}
+
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.25); }
+  50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.55); }
+}
+
 /* Next Birthday Strip */
 .next-bday-strip {
   display: flex;
@@ -1258,6 +1355,12 @@ body {
   }
   .chrono-separator {
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .birthday-milestone-grid {
+    grid-template-columns: 1fr;
   }
 }
 

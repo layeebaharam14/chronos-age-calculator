@@ -182,12 +182,45 @@
           </div>
         </div>
 
+        <!-- Birthday & Milestone Highlights (Completed Years, Which Birthday, 21st Birthday) -->
+        <div class="birthday-milestone-grid">
+          <!-- Exact Completed Years Card -->
+          <div class="bday-stat-card">
+            <div class="stat-card-top">
+              <span class="stat-badge-tag">Completed Age</span>
+              <span class="stat-icon">🎓</span>
+            </div>
+            <div class="stat-card-value" id="display-completed-years">0 Years</div>
+            <div class="stat-card-sub" id="display-living-year">Living in Year 1</div>
+          </div>
+
+          <!-- Which Birthday is Next Card -->
+          <div class="bday-stat-card">
+            <div class="stat-card-top">
+              <span class="stat-badge-tag upcoming-tag">Next Horizon</span>
+              <span class="stat-icon">🎂</span>
+            </div>
+            <div class="stat-card-value" id="display-which-bday">1st Birthday</div>
+            <div class="stat-card-sub" id="display-bday-in-sub">Upcoming Celebration</div>
+          </div>
+
+          <!-- 21st Birthday Special Milestone Card -->
+          <div class="bday-stat-card milestone-21-card" id="card-21st-birthday">
+            <div class="stat-card-top">
+              <span class="stat-badge-tag special-21-tag">21st Milestone</span>
+              <span class="stat-icon">🥂</span>
+            </div>
+            <div class="stat-card-value" id="display-21st-status">Calculating...</div>
+            <div class="stat-card-sub" id="display-21st-detail">21st Birthday Date</div>
+          </div>
+        </div>
+
         <!-- Next Birthday Countdown Card Strip -->
         <div class="next-bday-strip">
           <div class="bday-info">
-            <div class="bday-icon">🎂</div>
+            <div class="bday-icon">🎈</div>
             <div>
-              <div class="bday-title">Next Birthday In:</div>
+              <div class="bday-title" id="next-bday-label">Next Birthday Countdown:</div>
               <div class="bday-date-str" id="next-bday-date">Calculating...</div>
             </div>
           </div>
